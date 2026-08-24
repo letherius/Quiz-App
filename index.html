@@ -1,754 +1,1143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="QuizForge is a fast, replayable quiz experience with daily challenges, streak scoring, timers, and saved stats.">
-  <meta name="theme-color" content="#07111f">
-  <title>QuizForge | Challenge Your Brain</title>
+    <meta charset="UTF-8">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-  <link rel="stylesheet" href="style.css?v=6.0.0">
+    <meta
+        name="description"
+        content="QuizForge is a fast, replayable quiz experience with daily challenges, streak scoring, timers, achievements, and saved stats."
+    >
+
+    <meta
+        name="theme-color"
+        content="#090d11"
+    >
+
+    <title>
+        QuizForge | Challenge Your Brain
+    </title>
+
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- Version bumped to force new QuizForge design -->
+    <link
+        rel="stylesheet"
+        href="style.css?v=7.0.0"
+    >
 </head>
+
 
 <body>
 
-  <div class="ambient ambient-one"></div>
-  <div class="ambient ambient-two"></div>
-
-  <div id="confetti" class="confetti-layer" aria-hidden="true"></div>
-
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-  <main class="app-shell">
-
-    <header class="site-header">
-
-      <button
-        id="brand-button"
-        class="brand"
-        type="button"
-        aria-label="Return to QuizForge home"
-      >
-        <span class="brand-mark">Q</span>
-
-        <span>
-          <strong>QuizForge</strong>
-          <small>Think fast. Learn faster.</small>
-        </span>
-      </button>
-
-      <div class="header-actions">
-
-        <div class="header-best">
-          <span>Best score</span>
-          <strong id="header-best-score">0</strong>
-        </div>
-
-        <button
-          id="sound-toggle"
-          class="icon-button"
-          type="button"
-          aria-pressed="true"
-        >
-          <span id="sound-icon">♪</span>
-          <span>Sound</span>
-        </button>
-
-      </div>
-
-    </header>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
 
 
-    <!-- HOME SCREEN -->
-    <section id="home-screen" class="screen">
+    <div
+        id="confetti"
+        class="confetti-layer"
+        aria-hidden="true"
+    ></div>
 
-      <div class="hero-grid">
 
-        <div class="hero-copy">
+    <div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
 
-          <div class="eyebrow">
-            <span></span>
-            Fresh challenge every day
-          </div>
 
-          <h1>
-            Make one more question
-            <em>impossible to resist.</em>
-          </h1>
+    <main class="app-shell">
 
-          <p>
-            Pick a category, race the clock, build streaks, earn bonus
-            points, review misses, and come back tomorrow for a new daily
-            challenge.
-          </p>
+        <!-- =========================
+             HEADER
+        ========================== -->
 
-          <div class="hero-actions">
+        <header class="site-header">
 
             <button
-              id="daily-button"
-              class="primary-button hero-button"
-              type="button"
+                id="brand-button"
+                class="brand"
+                type="button"
+                aria-label="Return to QuizForge home"
             >
-              <span>Play Daily Challenge</span>
-              <small id="daily-note">
-                10 questions · one run per day
-              </small>
+
+                <span class="brand-mark">
+                    Q
+                </span>
+
+                <span>
+                    <strong>
+                        QuizForge
+                    </strong>
+
+                    <small>
+                        Think fast. Learn faster.
+                    </small>
+                </span>
+
             </button>
 
-            <button
-              id="jump-to-builder"
-              class="secondary-button"
-              type="button"
-            >
-              Build a Custom Run
-            </button>
 
-          </div>
+            <div class="header-actions">
 
-        </div>
+                <div class="header-best">
 
+                    <span>
+                        Best score
+                    </span>
 
-        <aside class="profile-card">
+                    <strong id="header-best-score">
+                        0
+                    </strong>
 
-          <div class="profile-card-top">
-
-            <div>
-              <span class="section-kicker">YOUR PROFILE</span>
-              <h2>Keep the streak alive.</h2>
-            </div>
-
-            <span id="daily-status" class="status-badge">
-              Daily ready
-            </span>
-
-          </div>
+                </div>
 
 
-          <div class="profile-feature">
+                <button
+                    id="sound-toggle"
+                    class="icon-button"
+                    type="button"
+                    aria-pressed="true"
+                >
 
-            <div class="accuracy-ring">
-              <span id="best-accuracy">0%</span>
-            </div>
+                    <span id="sound-icon">
+                        ♪
+                    </span>
 
-            <div>
-              <small>Personal best</small>
-              <strong id="profile-best-score">0 pts</strong>
-              <p>Best accuracy across your runs</p>
-            </div>
+                    <span>
+                        Sound
+                    </span>
 
-          </div>
-
-
-          <div class="profile-stats">
-
-            <div>
-              <span>Games</span>
-              <strong id="games-played">0</strong>
-            </div>
-
-            <div>
-              <span>Daily streak</span>
-              <strong>
-                <span id="daily-streak">0</span> 🔥
-              </strong>
-            </div>
-
-            <div>
-              <span>Best streak</span>
-              <strong id="best-streak">0</strong>
-            </div>
-
-          </div>
-
-        </aside>
-
-      </div>
-
-
-      <!-- CUSTOM QUIZ BUILDER -->
-      <section id="builder" class="builder-card">
-
-        <div class="builder-heading">
-
-          <div>
-            <span class="section-kicker">CUSTOM CHALLENGE</span>
-            <h2>Build your run</h2>
-          </div>
-
-          <p>
-            Choose what you want to play, how fast you want it,
-            and how long you want to stay in.
-          </p>
-
-        </div>
-
-
-        <div class="builder-grid">
-
-          <!-- CATEGORY -->
-          <div class="builder-group builder-group-wide">
-
-            <div class="group-title">
-              <span>01</span>
-
-              <div>
-                <strong>Category</strong>
-                <small>Choose your lane</small>
-              </div>
-            </div>
-
-
-            <div id="category-options" class="choice-grid">
-
-              <button
-                class="choice-card selected"
-                data-category="mixed"
-                type="button"
-              >
-                <b>✦</b>
-
-                <span>
-                  <strong>Mixed</strong>
-                  <small>A little of everything</small>
-                </span>
-
-                <i>✓</i>
-              </button>
-
-
-              <button
-                class="choice-card"
-                data-category="technology"
-                type="button"
-              >
-                <b>⌘</b>
-
-                <span>
-                  <strong>Technology</strong>
-                  <small>Web, code, and computing</small>
-                </span>
-
-                <i>✓</i>
-              </button>
-
-
-              <button
-                class="choice-card"
-                data-category="science"
-                type="button"
-              >
-                <b>⚛</b>
-
-                <span>
-                  <strong>Science</strong>
-                  <small>Space, biology, and physics</small>
-                </span>
-
-                <i>✓</i>
-              </button>
-
-
-              <button
-                class="choice-card"
-                data-category="world"
-                type="button"
-              >
-                <b>◎</b>
-
-                <span>
-                  <strong>World</strong>
-                  <small>Places, history, and culture</small>
-                </span>
-
-                <i>✓</i>
-              </button>
+                </button>
 
             </div>
 
-          </div>
+        </header>
 
 
-          <!-- GAME PACE -->
-          <div class="builder-group">
+        <!-- =========================
+             HOME SCREEN
+        ========================== -->
 
-            <div class="group-title">
-
-              <span>02</span>
-
-              <div>
-                <strong>Pace</strong>
-                <small>Faster earns more</small>
-              </div>
-
-            </div>
-
-
-            <div id="mode-options" class="mode-stack">
-
-              <button data-mode="relaxed" type="button">
-
-                <span>
-                  <strong>Relaxed</strong>
-                  <small>25 sec · 1×</small>
-                </span>
-
-                <b>25s</b>
-
-              </button>
-
-
-              <button
-                class="selected"
-                data-mode="standard"
-                type="button"
-              >
-
-                <span>
-                  <strong>Standard</strong>
-                  <small>15 sec · 1.25×</small>
-                </span>
-
-                <b>15s</b>
-
-              </button>
-
-
-              <button data-mode="blitz" type="button">
-
-                <span>
-                  <strong>Blitz</strong>
-                  <small>10 sec · 1.5×</small>
-                </span>
-
-                <b>10s</b>
-
-              </button>
-
-            </div>
-
-          </div>
-
-
-          <!-- QUIZ LENGTH -->
-          <div class="builder-group">
-
-            <div class="group-title">
-
-              <span>03</span>
-
-              <div>
-                <strong>Length</strong>
-                <small>Choose your run</small>
-              </div>
-
-            </div>
-
-
-            <div id="length-options" class="length-picker">
-
-              <button data-count="5" type="button">
-                5
-              </button>
-
-              <button
-                class="selected"
-                data-count="10"
-                type="button"
-              >
-                10
-              </button>
-
-            </div>
-
-
-            <div class="launch-card">
-
-              <div>
-                <span>Ready?</span>
-                <strong id="launch-summary">
-                  10 Mixed · Standard
-                </strong>
-              </div>
-
-              <button
-                id="start-custom-button"
-                class="primary-button"
-                type="button"
-              >
-                Start Run →
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-    </section>
-
-
-    <!-- QUIZ SCREEN -->
-    <section id="quiz-screen" class="screen hide">
-
-      <div class="game-shell">
-
-        <div class="game-topbar">
-
-          <div class="game-badges">
-
-            <span id="game-category" class="badge">
-              Mixed
-            </span>
-
-            <span id="game-mode" class="badge muted">
-              Standard
-            </span>
-
-          </div>
-
-          <button
-            id="quit-button"
-            class="text-button"
-            type="button"
-          >
-            End run
-          </button>
-
-        </div>
-
-
-        <div class="game-stats">
-
-          <div class="game-stat">
-            <span>Question</span>
-            <strong id="question-count">1 / 10</strong>
-          </div>
-
-
-          <div class="game-stat">
-            <span>Score</span>
-            <strong id="live-score">0</strong>
-          </div>
-
-
-          <div class="game-stat">
-            <span>Streak</span>
-
-            <strong>
-              <span id="live-streak">0</span> 🔥
-            </strong>
-          </div>
-
-
-          <div
-            id="timer-ring"
-            class="timer-ring"
-            style="--progress: 100"
-          >
-
-            <div>
-              <strong id="timer">15</strong>
-              <span>SEC</span>
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="progress-block">
-
-          <div>
-            <span>Progress</span>
-            <span id="progress-label">10%</span>
-          </div>
-
-          <div class="progress-track">
-            <div
-              id="progress-bar"
-              class="progress-bar"
-            ></div>
-          </div>
-
-        </div>
-
-
-        <article class="question-card">
-
-          <div class="question-heading">
-
-            <span id="question-number">
-              01
-            </span>
-
-            <div>
-
-              <p id="question-overline">
-                TECHNOLOGY · MEDIUM
-              </p>
-
-              <h2 id="question">
-                Question text
-              </h2>
-
-            </div>
-
-          </div>
-
-
-          <div
-            id="options"
-            class="answer-grid"
-          ></div>
-
-
-          <div
-            id="feedback"
-            class="feedback-panel hide"
-          >
-
-            <div
-              id="feedback-icon"
-              class="feedback-icon"
-            >
-              ✓
-            </div>
-
-            <div>
-
-              <strong id="feedback-title">
-                Correct
-              </strong>
-
-              <p id="feedback-text"></p>
-
-            </div>
-
-          </div>
-
-
-          <div class="question-footer">
-
-            <span>
-              Tip: press 1–4 to answer
-            </span>
-
-            <button
-              id="next-button"
-              class="primary-button"
-              type="button"
-              disabled
-            >
-              Next Question →
-            </button>
-
-          </div>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- RESULTS SCREEN -->
-    <section id="result-screen" class="screen hide">
-
-      <div class="results-card">
-
-        <div class="results-hero">
-
-          <span
-            id="result-badge"
-            class="section-kicker"
-          >
-            RUN COMPLETE
-          </span>
-
-          <h1 id="result-title">
-            That was strong.
-          </h1>
-
-          <p id="result-subtitle">
-            Run it back and chase an even better score.
-          </p>
-
-
-          <div class="score-display">
-
-            <span>FINAL SCORE</span>
-
-            <strong id="final-score">
-              0
-            </strong>
-
-            <em
-              id="new-high-score"
-              class="hide"
-            >
-              NEW HIGH SCORE
-            </em>
-
-          </div>
-
-
-          <div
-            id="achievement-row"
-            class="achievement-row"
-          ></div>
-
-        </div>
-
-
-        <div class="result-stat-grid">
-
-          <div>
-
-            <span>Accuracy</span>
-
-            <strong id="final-accuracy">
-              0%
-            </strong>
-
-            <small id="correct-summary">
-              0 / 10 correct
-            </small>
-
-          </div>
-
-
-          <div>
-
-            <span>Best streak</span>
-
-            <strong id="final-streak">
-              0
-            </strong>
-
-            <small>
-              Consecutive answers
-            </small>
-
-          </div>
-
-
-          <div>
-
-            <span>Avg. response</span>
-
-            <strong id="average-time">
-              0.0s
-            </strong>
-
-            <small>
-              Per question
-            </small>
-
-          </div>
-
-
-          <div>
-
-            <span>Mode</span>
-
-            <strong id="final-mode">
-              Standard
-            </strong>
-
-            <small id="final-category">
-              Mixed category
-            </small>
-
-          </div>
-
-        </div>
-
-
-        <div
-          id="review-card"
-          class="review-card hide"
+        <section
+            id="home-screen"
+            class="screen"
         >
 
-          <button
-            id="review-toggle"
-            class="review-toggle"
-            type="button"
-            aria-expanded="false"
-          >
+            <div class="hero-grid">
 
-            <span>
+                <div class="hero-copy">
 
-              <strong>
-                Review missed questions
-              </strong>
+                    <div class="eyebrow">
 
-              <small id="review-count">
-                0 missed
-              </small>
+                        <span></span>
 
-            </span>
+                        Fresh challenge every day
 
-            <b id="review-chevron">
-              ＋
-            </b>
-
-          </button>
+                    </div>
 
 
-          <div
-            id="review-list"
-            class="review-list hide"
-          ></div>
+                    <h1>
 
-        </div>
+                        Make one more question
 
+                        <em>
+                            impossible to resist.
+                        </em>
 
-        <div class="result-actions">
-
-          <button
-            id="play-again-button"
-            class="primary-button"
-            type="button"
-          >
-            Play Again
-          </button>
-
-          <button
-            id="new-challenge-button"
-            class="secondary-button"
-            type="button"
-          >
-            New Challenge
-          </button>
-
-          <button
-            id="share-button"
-            class="ghost-button"
-            type="button"
-          >
-            Share Result
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
+                    </h1>
 
 
-    <footer class="site-footer">
-      Built by Letherius Miller · QuizForge v6
-    </footer>
+                    <p>
+                        Pick a category, race the clock, build streaks,
+                        earn bonus points, review misses, and come back
+                        tomorrow for a new daily challenge.
+                    </p>
 
-  </main>
 
-  <script src="script.js?v=6.0.0"></script>
+                    <div class="hero-actions">
+
+                        <button
+                            id="daily-button"
+                            class="primary-button hero-button"
+                            type="button"
+                        >
+
+                            <span>
+                                Play Daily Challenge
+                            </span>
+
+                            <small id="daily-note">
+                                10 questions · one fresh challenge today
+                            </small>
+
+                        </button>
+
+
+                        <button
+                            id="jump-to-builder"
+                            class="secondary-button"
+                            type="button"
+                        >
+                            Build a Custom Run
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROFILE -->
+
+                <aside class="profile-card">
+
+                    <div class="profile-card-top">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                Your Profile
+                            </span>
+
+                            <h2>
+                                Keep the streak alive.
+                            </h2>
+
+                        </div>
+
+
+                        <span
+                            id="daily-status"
+                            class="status-badge"
+                        >
+                            Daily ready
+                        </span>
+
+                    </div>
+
+
+                    <div class="profile-feature">
+
+                        <div class="accuracy-ring">
+
+                            <span id="best-accuracy">
+                                0%
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <small>
+                                Personal best
+                            </small>
+
+                            <strong id="profile-best-score">
+                                0 pts
+                            </strong>
+
+                            <p>
+                                Best accuracy across your runs
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-stats">
+
+                        <div>
+
+                            <span>
+                                Games
+                            </span>
+
+                            <strong id="games-played">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Daily streak
+                            </span>
+
+                            <strong>
+                                <span id="daily-streak">
+                                    0
+                                </span>
+                                🔥
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Best streak
+                            </span>
+
+                            <strong id="best-streak">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+
+            <!-- =========================
+                 CUSTOM QUIZ BUILDER
+            ========================== -->
+
+            <section
+                id="builder"
+                class="builder-card"
+            >
+
+                <div class="builder-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            Custom Challenge
+                        </span>
+
+                        <h2>
+                            Build your run
+                        </h2>
+
+                    </div>
+
+
+                    <p>
+                        Choose what you want to play, how fast you
+                        want it, and how long you want to stay in.
+                    </p>
+
+                </div>
+
+
+                <div class="builder-grid">
+
+
+                    <!-- CATEGORY -->
+
+                    <div class="builder-group builder-group-wide">
+
+                        <div class="group-title">
+
+                            <span>
+                                01
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Category
+                                </strong>
+
+                                <small>
+                                    Choose your lane
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="category-options"
+                            class="choice-grid"
+                        >
+
+                            <button
+                                class="choice-card selected"
+                                data-category="mixed"
+                                type="button"
+                            >
+
+                                <b>
+                                    ✦
+                                </b>
+
+                                <span>
+
+                                    <strong>
+                                        Mixed
+                                    </strong>
+
+                                    <small>
+                                        A little of everything
+                                    </small>
+
+                                </span>
+
+                                <i>
+                                    ✓
+                                </i>
+
+                            </button>
+
+
+                            <button
+                                class="choice-card"
+                                data-category="technology"
+                                type="button"
+                            >
+
+                                <b>
+                                    ⌘
+                                </b>
+
+                                <span>
+
+                                    <strong>
+                                        Technology
+                                    </strong>
+
+                                    <small>
+                                        Web, code, and computing
+                                    </small>
+
+                                </span>
+
+                                <i>
+                                    ✓
+                                </i>
+
+                            </button>
+
+
+                            <button
+                                class="choice-card"
+                                data-category="science"
+                                type="button"
+                            >
+
+                                <b>
+                                    ⚛
+                                </b>
+
+                                <span>
+
+                                    <strong>
+                                        Science
+                                    </strong>
+
+                                    <small>
+                                        Space, biology, and physics
+                                    </small>
+
+                                </span>
+
+                                <i>
+                                    ✓
+                                </i>
+
+                            </button>
+
+
+                            <button
+                                class="choice-card"
+                                data-category="world"
+                                type="button"
+                            >
+
+                                <b>
+                                    ◎
+                                </b>
+
+                                <span>
+
+                                    <strong>
+                                        World
+                                    </strong>
+
+                                    <small>
+                                        Places, history, and culture
+                                    </small>
+
+                                </span>
+
+                                <i>
+                                    ✓
+                                </i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PACE -->
+
+                    <div class="builder-group">
+
+                        <div class="group-title">
+
+                            <span>
+                                02
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Pace
+                                </strong>
+
+                                <small>
+                                    Faster earns more
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="mode-options"
+                            class="mode-stack"
+                        >
+
+                            <button
+                                data-mode="relaxed"
+                                type="button"
+                            >
+
+                                <span>
+
+                                    <strong>
+                                        Relaxed
+                                    </strong>
+
+                                    <small>
+                                        25 sec · 1×
+                                    </small>
+
+                                </span>
+
+                                <b>
+                                    25s
+                                </b>
+
+                            </button>
+
+
+                            <button
+                                class="selected"
+                                data-mode="standard"
+                                type="button"
+                            >
+
+                                <span>
+
+                                    <strong>
+                                        Standard
+                                    </strong>
+
+                                    <small>
+                                        15 sec · 1.25×
+                                    </small>
+
+                                </span>
+
+                                <b>
+                                    15s
+                                </b>
+
+                            </button>
+
+
+                            <button
+                                data-mode="blitz"
+                                type="button"
+                            >
+
+                                <span>
+
+                                    <strong>
+                                        Blitz
+                                    </strong>
+
+                                    <small>
+                                        10 sec · 1.5×
+                                    </small>
+
+                                </span>
+
+                                <b>
+                                    10s
+                                </b>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- LENGTH -->
+
+                    <div class="builder-group">
+
+                        <div class="group-title">
+
+                            <span>
+                                03
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Length
+                                </strong>
+
+                                <small>
+                                    Choose your run
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="length-options"
+                            class="length-picker"
+                        >
+
+                            <button
+                                data-count="5"
+                                type="button"
+                            >
+                                5
+                            </button>
+
+
+                            <button
+                                class="selected"
+                                data-count="10"
+                                type="button"
+                            >
+                                10
+                            </button>
+
+                        </div>
+
+
+                        <div class="launch-card">
+
+                            <div>
+
+                                <span>
+                                    Ready?
+                                </span>
+
+                                <strong id="launch-summary">
+                                    10 Mixed · Standard
+                                </strong>
+
+                            </div>
+
+
+                            <button
+                                id="start-custom-button"
+                                class="primary-button"
+                                type="button"
+                            >
+                                Start Run →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- =========================
+             QUIZ SCREEN
+        ========================== -->
+
+        <section
+            id="quiz-screen"
+            class="screen hide"
+        >
+
+            <div class="game-shell">
+
+
+                <div class="game-topbar">
+
+                    <div class="game-badges">
+
+                        <span
+                            id="game-category"
+                            class="badge"
+                        >
+                            Mixed
+                        </span>
+
+
+                        <span
+                            id="game-mode"
+                            class="badge muted"
+                        >
+                            Standard
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        id="quit-button"
+                        class="text-button"
+                        type="button"
+                    >
+                        End run
+                    </button>
+
+                </div>
+
+
+                <div class="game-stats">
+
+
+                    <div class="game-stat">
+
+                        <span>
+                            Question
+                        </span>
+
+                        <strong id="question-count">
+                            1 / 10
+                        </strong>
+
+                    </div>
+
+
+                    <div class="game-stat">
+
+                        <span>
+                            Score
+                        </span>
+
+                        <strong id="live-score">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="game-stat">
+
+                        <span>
+                            Streak
+                        </span>
+
+                        <strong>
+
+                            <span id="live-streak">
+                                0
+                            </span>
+
+                            🔥
+
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        id="timer-ring"
+                        class="timer-ring"
+                        style="--progress: 100"
+                    >
+
+                        <div>
+
+                            <strong id="timer">
+                                15
+                            </strong>
+
+                            <span>
+                                SEC
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-block">
+
+                    <div>
+
+                        <span>
+                            Progress
+                        </span>
+
+                        <span id="progress-label">
+                            10%
+                        </span>
+
+                    </div>
+
+
+                    <div class="progress-track">
+
+                        <div
+                            id="progress-bar"
+                            class="progress-bar"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <article class="question-card">
+
+
+                    <div class="question-heading">
+
+                        <span id="question-number">
+                            01
+                        </span>
+
+
+                        <div>
+
+                            <p id="question-overline">
+                                TECHNOLOGY · MEDIUM
+                            </p>
+
+
+                            <h2 id="question">
+                                Question text
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="options"
+                        class="answer-grid"
+                    ></div>
+
+
+                    <div
+                        id="feedback"
+                        class="feedback-panel hide"
+                    >
+
+                        <div
+                            id="feedback-icon"
+                            class="feedback-icon"
+                        >
+                            ✓
+                        </div>
+
+
+                        <div>
+
+                            <strong id="feedback-title">
+                                Correct
+                            </strong>
+
+                            <p id="feedback-text"></p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="question-footer">
+
+                        <span>
+                            Tip: press 1–4 to answer
+                        </span>
+
+
+                        <button
+                            id="next-button"
+                            class="primary-button"
+                            type="button"
+                            disabled
+                        >
+                            Next Question →
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             RESULTS SCREEN
+        ========================== -->
+
+        <section
+            id="result-screen"
+            class="screen hide"
+        >
+
+            <div class="results-card">
+
+
+                <div class="results-hero">
+
+                    <span
+                        id="result-badge"
+                        class="section-kicker"
+                    >
+                        RUN COMPLETE
+                    </span>
+
+
+                    <h1 id="result-title">
+                        That was strong.
+                    </h1>
+
+
+                    <p id="result-subtitle">
+                        Run it back and chase an even better score.
+                    </p>
+
+
+                    <div class="score-display">
+
+                        <span>
+                            FINAL SCORE
+                        </span>
+
+                        <strong id="final-score">
+                            0
+                        </strong>
+
+
+                        <em
+                            id="new-high-score"
+                            class="hide"
+                        >
+                            NEW HIGH SCORE
+                        </em>
+
+                    </div>
+
+
+                    <div
+                        id="achievement-row"
+                        class="achievement-row"
+                    ></div>
+
+                </div>
+
+
+                <div class="result-stat-grid">
+
+
+                    <div>
+
+                        <span>
+                            Accuracy
+                        </span>
+
+                        <strong id="final-accuracy">
+                            0%
+                        </strong>
+
+                        <small id="correct-summary">
+                            0 / 10 correct
+                        </small>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Best streak
+                        </span>
+
+                        <strong id="final-streak">
+                            0
+                        </strong>
+
+                        <small>
+                            Consecutive answers
+                        </small>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Avg. response
+                        </span>
+
+                        <strong id="average-time">
+                            0.0s
+                        </strong>
+
+                        <small>
+                            Per question
+                        </small>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Mode
+                        </span>
+
+                        <strong id="final-mode">
+                            Standard
+                        </strong>
+
+                        <small id="final-category">
+                            Mixed category
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="review-card"
+                    class="review-card hide"
+                >
+
+                    <button
+                        id="review-toggle"
+                        class="review-toggle"
+                        type="button"
+                        aria-expanded="false"
+                    >
+
+                        <span>
+
+                            <strong>
+                                Review missed questions
+                            </strong>
+
+                            <small id="review-count">
+                                0 missed
+                            </small>
+
+                        </span>
+
+
+                        <b id="review-chevron">
+                            ＋
+                        </b>
+
+                    </button>
+
+
+                    <div
+                        id="review-list"
+                        class="review-list hide"
+                    ></div>
+
+                </div>
+
+
+                <div class="result-actions">
+
+                    <button
+                        id="play-again-button"
+                        class="primary-button"
+                        type="button"
+                    >
+                        Play Again
+                    </button>
+
+
+                    <button
+                        id="new-challenge-button"
+                        class="secondary-button"
+                        type="button"
+                    >
+                        New Challenge
+                    </button>
+
+
+                    <button
+                        id="share-button"
+                        class="ghost-button"
+                        type="button"
+                    >
+                        Share Result
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="site-footer">
+            Built by Letherius Miller · QuizForge v7
+        </footer>
+
+    </main>
+
+
+    <!-- Version bumped to force working JavaScript -->
+    <script src="script.js?v=7.0.0"></script>
 
 </body>
 </html>
