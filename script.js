@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("QuizForge JavaScript v7 loaded successfully.");
+    console.log("QuizForge JavaScript v7.1 loaded successfully.");
 
-    // --------------------------------------------------
+    // ==================================================
     // QUESTION BANK
-    // --------------------------------------------------
+    // ==================================================
 
     const QUESTION_BANK = [
         {
@@ -388,9 +388,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
 
-    // --------------------------------------------------
-    // SETTINGS
-    // --------------------------------------------------
+    // ==================================================
+    // QUIZ MODES
+    // ==================================================
 
     const MODES = {
         relaxed: {
@@ -421,6 +421,10 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
+    // ==================================================
+    // DEFAULT SAVED STATS
+    // ==================================================
+
     const DEFAULT_STATS = {
         bestScore: 0,
         bestAccuracy: 0,
@@ -432,31 +436,40 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // --------------------------------------------------
+    // ==================================================
     // SAFE LOCAL STORAGE
-    // --------------------------------------------------
+    // ==================================================
 
     function loadStats() {
         try {
-            const saved = localStorage.getItem("quizforgeStatsV7");
+            const saved =
+                localStorage.getItem(
+                    "quizforgeStatsV7"
+                );
 
             if (!saved) {
-                return { ...DEFAULT_STATS };
+                return {
+                    ...DEFAULT_STATS
+                };
             }
 
-            const parsed = JSON.parse(saved);
+            const parsed =
+                JSON.parse(saved);
 
             return {
                 ...DEFAULT_STATS,
                 ...parsed
             };
+
         } catch (error) {
             console.warn(
-                "QuizForge could not load saved stats. Starting fresh.",
+                "QuizForge could not load saved stats.",
                 error
             );
 
-            return { ...DEFAULT_STATS };
+            return {
+                ...DEFAULT_STATS
+            };
         }
     }
 
@@ -467,6 +480,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "quizforgeStatsV7",
                 JSON.stringify(stats)
             );
+
         } catch (error) {
             console.warn(
                 "QuizForge could not save stats.",
@@ -476,109 +490,210 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    let stats = loadStats();
+    let stats =
+        loadStats();
 
 
-    // --------------------------------------------------
+    // ==================================================
     // DOM REFERENCES
-    // --------------------------------------------------
+    // ==================================================
 
-    const get = (id) => document.getElementById(id);
+    const get = (id) =>
+        document.getElementById(id);
 
 
     const elements = {
-        homeScreen: get("home-screen"),
-        quizScreen: get("quiz-screen"),
-        resultScreen: get("result-screen"),
+        homeScreen:
+            get("home-screen"),
 
-        brandButton: get("brand-button"),
+        quizScreen:
+            get("quiz-screen"),
 
-        soundToggle: get("sound-toggle"),
-        soundIcon: get("sound-icon"),
+        resultScreen:
+            get("result-screen"),
 
-        headerBestScore: get("header-best-score"),
+        brandButton:
+            get("brand-button"),
 
-        bestAccuracy: get("best-accuracy"),
-        profileBestScore: get("profile-best-score"),
-        gamesPlayed: get("games-played"),
-        dailyStreak: get("daily-streak"),
-        bestStreak: get("best-streak"),
-        dailyStatus: get("daily-status"),
-        dailyNote: get("daily-note"),
+        soundToggle:
+            get("sound-toggle"),
 
-        dailyButton: get("daily-button"),
-        jumpToBuilder: get("jump-to-builder"),
+        soundIcon:
+            get("sound-icon"),
 
-        categoryOptions: get("category-options"),
-        modeOptions: get("mode-options"),
-        lengthOptions: get("length-options"),
+        headerBestScore:
+            get("header-best-score"),
 
-        launchSummary: get("launch-summary"),
-        startCustomButton: get("start-custom-button"),
+        bestAccuracy:
+            get("best-accuracy"),
 
-        gameCategory: get("game-category"),
-        gameMode: get("game-mode"),
+        profileBestScore:
+            get("profile-best-score"),
 
-        quitButton: get("quit-button"),
+        gamesPlayed:
+            get("games-played"),
 
-        questionCount: get("question-count"),
-        liveScore: get("live-score"),
-        liveStreak: get("live-streak"),
+        dailyStreak:
+            get("daily-streak"),
 
-        timerRing: get("timer-ring"),
-        timer: get("timer"),
+        bestStreak:
+            get("best-streak"),
 
-        progressLabel: get("progress-label"),
-        progressBar: get("progress-bar"),
+        dailyStatus:
+            get("daily-status"),
 
-        questionNumber: get("question-number"),
-        questionOverline: get("question-overline"),
-        question: get("question"),
+        dailyNote:
+            get("daily-note"),
 
-        options: get("options"),
+        dailyButton:
+            get("daily-button"),
 
-        feedback: get("feedback"),
-        feedbackIcon: get("feedback-icon"),
-        feedbackTitle: get("feedback-title"),
-        feedbackText: get("feedback-text"),
+        jumpToBuilder:
+            get("jump-to-builder"),
 
-        nextButton: get("next-button"),
+        categoryOptions:
+            get("category-options"),
 
-        resultBadge: get("result-badge"),
-        resultTitle: get("result-title"),
-        resultSubtitle: get("result-subtitle"),
+        modeOptions:
+            get("mode-options"),
 
-        finalScore: get("final-score"),
-        newHighScore: get("new-high-score"),
+        lengthOptions:
+            get("length-options"),
 
-        achievementRow: get("achievement-row"),
+        launchSummary:
+            get("launch-summary"),
 
-        finalAccuracy: get("final-accuracy"),
-        correctSummary: get("correct-summary"),
-        finalStreak: get("final-streak"),
-        averageTime: get("average-time"),
+        startCustomButton:
+            get("start-custom-button"),
 
-        finalMode: get("final-mode"),
-        finalCategory: get("final-category"),
+        gameCategory:
+            get("game-category"),
 
-        reviewCard: get("review-card"),
-        reviewToggle: get("review-toggle"),
-        reviewCount: get("review-count"),
-        reviewChevron: get("review-chevron"),
-        reviewList: get("review-list"),
+        gameMode:
+            get("game-mode"),
 
-        playAgainButton: get("play-again-button"),
-        newChallengeButton: get("new-challenge-button"),
-        shareButton: get("share-button"),
+        quitButton:
+            get("quit-button"),
 
-        confetti: get("confetti"),
-        toast: get("toast")
+        questionCount:
+            get("question-count"),
+
+        liveScore:
+            get("live-score"),
+
+        liveStreak:
+            get("live-streak"),
+
+        timerRing:
+            get("timer-ring"),
+
+        timer:
+            get("timer"),
+
+        progressLabel:
+            get("progress-label"),
+
+        progressBar:
+            get("progress-bar"),
+
+        questionNumber:
+            get("question-number"),
+
+        questionOverline:
+            get("question-overline"),
+
+        question:
+            get("question"),
+
+        options:
+            get("options"),
+
+        feedback:
+            get("feedback"),
+
+        feedbackIcon:
+            get("feedback-icon"),
+
+        feedbackTitle:
+            get("feedback-title"),
+
+        feedbackText:
+            get("feedback-text"),
+
+        nextButton:
+            get("next-button"),
+
+        resultBadge:
+            get("result-badge"),
+
+        resultTitle:
+            get("result-title"),
+
+        resultSubtitle:
+            get("result-subtitle"),
+
+        finalScore:
+            get("final-score"),
+
+        newHighScore:
+            get("new-high-score"),
+
+        achievementRow:
+            get("achievement-row"),
+
+        finalAccuracy:
+            get("final-accuracy"),
+
+        correctSummary:
+            get("correct-summary"),
+
+        finalStreak:
+            get("final-streak"),
+
+        averageTime:
+            get("average-time"),
+
+        finalMode:
+            get("final-mode"),
+
+        finalCategory:
+            get("final-category"),
+
+        reviewCard:
+            get("review-card"),
+
+        reviewToggle:
+            get("review-toggle"),
+
+        reviewCount:
+            get("review-count"),
+
+        reviewChevron:
+            get("review-chevron"),
+
+        reviewList:
+            get("review-list"),
+
+        playAgainButton:
+            get("play-again-button"),
+
+        newChallengeButton:
+            get("new-challenge-button"),
+
+        shareButton:
+            get("share-button"),
+
+        confetti:
+            get("confetti"),
+
+        toast:
+            get("toast")
     };
 
 
-    // --------------------------------------------------
+    // ==================================================
     // APP STATE
-    // --------------------------------------------------
+    // ==================================================
 
     const state = {
         settings: {
@@ -619,19 +734,32 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // --------------------------------------------------
-    // HELPERS
-    // --------------------------------------------------
+    // ==================================================
+    // GENERAL HELPERS
+    // ==================================================
 
     function shuffle(array) {
-        const copy = [...array];
+        const copy =
+            [...array];
 
-        for (let i = copy.length - 1; i > 0; i--) {
+        for (
+            let i = copy.length - 1;
+            i > 0;
+            i--
+        ) {
             const randomIndex =
-                Math.floor(Math.random() * (i + 1));
+                Math.floor(
+                    Math.random() *
+                    (i + 1)
+                );
 
-            [copy[i], copy[randomIndex]] =
-                [copy[randomIndex], copy[i]];
+            [
+                copy[i],
+                copy[randomIndex]
+            ] = [
+                copy[randomIndex],
+                copy[i]
+            ];
         }
 
         return copy;
@@ -639,22 +767,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function todayKey() {
-        const date = new Date();
+        const date =
+            new Date();
 
-        const year = date.getFullYear();
+        const year =
+            date.getFullYear();
 
         const month =
-            String(date.getMonth() + 1).padStart(2, "0");
+            String(
+                date.getMonth() + 1
+            ).padStart(2, "0");
 
         const day =
-            String(date.getDate()).padStart(2, "0");
+            String(
+                date.getDate()
+            ).padStart(2, "0");
 
-        return `${year}-${month}-${day}`;
+        return (
+            `${year}-${month}-${day}`
+        );
     }
 
 
     function seededRandom(seed) {
-        let value = seed % 2147483647;
+        let value =
+            seed % 2147483647;
 
         if (value <= 0) {
             value += 2147483646;
@@ -662,11 +799,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         return function () {
             value =
-                value * 16807 % 2147483647;
+                (
+                    value *
+                    16807
+                ) %
+                2147483647;
 
             return (
                 value - 1
-            ) / 2147483646;
+            ) /
+            2147483646;
         };
     }
 
@@ -674,7 +816,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function createSeedFromString(text) {
         let hash = 0;
 
-        for (let i = 0; i < text.length; i++) {
+        for (
+            let i = 0;
+            i < text.length;
+            i++
+        ) {
             hash =
                 (
                     hash * 31 +
@@ -686,27 +832,47 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function seededShuffle(array, seedText) {
-        const copy = [...array];
+    function seededShuffle(
+        array,
+        seedText
+    ) {
+        const copy =
+            [...array];
 
         const random =
             seededRandom(
-                createSeedFromString(seedText)
+                createSeedFromString(
+                    seedText
+                )
             );
 
-        for (let i = copy.length - 1; i > 0; i--) {
+        for (
+            let i = copy.length - 1;
+            i > 0;
+            i--
+        ) {
             const randomIndex =
                 Math.floor(
-                    random() * (i + 1)
+                    random() *
+                    (i + 1)
                 );
 
-            [copy[i], copy[randomIndex]] =
-                [copy[randomIndex], copy[i]];
+            [
+                copy[i],
+                copy[randomIndex]
+            ] = [
+                copy[randomIndex],
+                copy[i]
+            ];
         }
 
         return copy;
     }
 
+
+    // ==================================================
+    // SCREEN CONTROL
+    // ==================================================
 
     function showScreen(screen) {
         [
@@ -715,11 +881,15 @@ document.addEventListener("DOMContentLoaded", () => {
             elements.resultScreen
         ].forEach((item) => {
             if (item) {
-                item.classList.add("hide");
+                item.classList.add(
+                    "hide"
+                );
             }
         });
 
-        screen.classList.remove("hide");
+        screen.classList.remove(
+            "hide"
+        );
 
         window.scrollTo({
             top: 0,
@@ -728,13 +898,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // --------------------------------------------------
-    // HOME SCREEN
-    // --------------------------------------------------
+    // ==================================================
+    // HOME PROFILE
+    // ==================================================
 
     function updateHomeStats() {
         elements.headerBestScore.textContent =
-            stats.bestScore.toLocaleString();
+            stats.bestScore
+                .toLocaleString();
 
         elements.profileBestScore.textContent =
             `${stats.bestScore.toLocaleString()} pts`;
@@ -751,45 +922,55 @@ document.addEventListener("DOMContentLoaded", () => {
         elements.bestStreak.textContent =
             stats.bestStreak;
 
+
         const completedToday =
-            stats.lastDailyDate === todayKey();
+            stats.lastDailyDate ===
+            todayKey();
+
 
         elements.dailyStatus.textContent =
             completedToday
                 ? "Daily complete"
                 : "Daily ready";
 
+
         elements.dailyNote.textContent =
             completedToday
                 ? "Completed today · replay anytime"
                 : "10 questions · fresh daily challenge";
+
 
         elements.soundToggle.setAttribute(
             "aria-pressed",
             String(stats.sound)
         );
 
+
         elements.soundIcon.textContent =
             stats.sound
                 ? "♪"
                 : "×";
 
-        const ring =
-            document.querySelector(".accuracy-ring");
 
-        if (ring) {
-            ring.style.background =
+        const accuracyRing =
+            document.querySelector(
+                ".accuracy-ring"
+            );
+
+
+        if (accuracyRing) {
+            accuracyRing.style.background =
                 `conic-gradient(
-                    var(--cyan) ${Math.max(stats.bestAccuracy, 1)}%,
+                    var(--gold) ${Math.max(stats.bestAccuracy, 1)}%,
                     rgba(255,255,255,.08) 0
                 )`;
         }
     }
 
 
-    // --------------------------------------------------
-    // BUILDER CONTROLS
-    // --------------------------------------------------
+    // ==================================================
+    // CUSTOM QUIZ BUILDER
+    // ==================================================
 
     function updateLaunchSummary() {
         elements.launchSummary.textContent =
@@ -803,19 +984,27 @@ document.addEventListener("DOMContentLoaded", () => {
         "click",
         (event) => {
             const button =
-                event.target.closest(".choice-card");
+                event.target.closest(
+                    ".choice-card"
+                );
 
             if (!button) {
                 return;
             }
 
             elements.categoryOptions
-                .querySelectorAll(".choice-card")
+                .querySelectorAll(
+                    ".choice-card"
+                )
                 .forEach((item) => {
-                    item.classList.remove("selected");
+                    item.classList.remove(
+                        "selected"
+                    );
                 });
 
-            button.classList.add("selected");
+            button.classList.add(
+                "selected"
+            );
 
             state.settings.category =
                 button.dataset.category;
@@ -829,19 +1018,27 @@ document.addEventListener("DOMContentLoaded", () => {
         "click",
         (event) => {
             const button =
-                event.target.closest("button");
+                event.target.closest(
+                    "button"
+                );
 
             if (!button) {
                 return;
             }
 
             elements.modeOptions
-                .querySelectorAll("button")
+                .querySelectorAll(
+                    "button"
+                )
                 .forEach((item) => {
-                    item.classList.remove("selected");
+                    item.classList.remove(
+                        "selected"
+                    );
                 });
 
-            button.classList.add("selected");
+            button.classList.add(
+                "selected"
+            );
 
             state.settings.mode =
                 button.dataset.mode;
@@ -855,31 +1052,120 @@ document.addEventListener("DOMContentLoaded", () => {
         "click",
         (event) => {
             const button =
-                event.target.closest("button");
+                event.target.closest(
+                    "button"
+                );
 
             if (!button) {
                 return;
             }
 
             elements.lengthOptions
-                .querySelectorAll("button")
+                .querySelectorAll(
+                    "button"
+                )
                 .forEach((item) => {
-                    item.classList.remove("selected");
+                    item.classList.remove(
+                        "selected"
+                    );
                 });
 
-            button.classList.add("selected");
+            button.classList.add(
+                "selected"
+            );
 
             state.settings.count =
-                Number(button.dataset.count);
+                Number(
+                    button.dataset.count
+                );
 
             updateLaunchSummary();
         }
     );
 
 
-    // --------------------------------------------------
+    // ==================================================
+    // FIXED CUSTOM RUN NAVIGATION
+    // ==================================================
+
+    function goToQuizBuilder() {
+        const builder =
+            document.getElementById(
+                "builder"
+            );
+
+        if (!builder) {
+            console.warn(
+                "QuizForge: Custom quiz builder could not be found."
+            );
+
+            return;
+        }
+
+
+        const headerOffset =
+            24;
+
+
+        const builderPosition =
+            builder
+                .getBoundingClientRect()
+                .top +
+            window.pageYOffset -
+            headerOffset;
+
+
+        window.scrollTo({
+            top: builderPosition,
+            behavior: "smooth"
+        });
+
+
+        // Brief visual highlight so the user
+        // immediately sees where they were taken.
+        if (
+            typeof builder.animate ===
+            "function"
+        ) {
+            builder.animate(
+                [
+                    {
+                        transform:
+                            "scale(1)",
+
+                        boxShadow:
+                            "0 30px 90px rgba(0, 0, 0, 0.58)"
+                    },
+
+                    {
+                        transform:
+                            "scale(1.006)",
+
+                        boxShadow:
+                            "0 0 0 2px rgba(244, 184, 96, 0.62), 0 30px 90px rgba(0, 0, 0, 0.58)"
+                    },
+
+                    {
+                        transform:
+                            "scale(1)",
+
+                        boxShadow:
+                            "0 30px 90px rgba(0, 0, 0, 0.58)"
+                    }
+                ],
+
+                {
+                    duration: 850,
+                    easing: "ease-out"
+                }
+            );
+        }
+    }
+
+
+    // ==================================================
     // PREPARE QUESTIONS
-    // --------------------------------------------------
+    // ==================================================
 
     function prepareQuestions(isDaily) {
         if (isDaily) {
@@ -887,24 +1173,38 @@ document.addEventListener("DOMContentLoaded", () => {
                 QUESTION_BANK,
                 todayKey()
             )
-                .slice(0, 10)
-                .map((question, index) => {
-                    return {
-                        ...question,
+                .slice(
+                    0,
+                    10
+                )
+                .map(
+                    (
+                        question,
+                        index
+                    ) => {
+                        return {
+                            ...question,
 
-                        options:
-                            seededShuffle(
-                                question.options,
-                                `${todayKey()}-${index}`
-                            )
-                    };
-                });
+                            options:
+                                seededShuffle(
+                                    question.options,
+                                    `${todayKey()}-${index}`
+                                )
+                        };
+                    }
+                );
         }
+
 
         let pool;
 
-        if (state.settings.category === "mixed") {
-            pool = QUESTION_BANK;
+
+        if (
+            state.settings.category ===
+            "mixed"
+        ) {
+            pool =
+                QUESTION_BANK;
         } else {
             pool =
                 QUESTION_BANK.filter(
@@ -914,6 +1214,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
         }
 
+
         return shuffle(pool)
             .slice(
                 0,
@@ -922,31 +1223,47 @@ document.addEventListener("DOMContentLoaded", () => {
                     pool.length
                 )
             )
-            .map((question) => {
-                return {
-                    ...question,
+            .map(
+                (question) => {
+                    return {
+                        ...question,
 
-                    options:
-                        shuffle(question.options)
-                };
-            });
+                        options:
+                            shuffle(
+                                question.options
+                            )
+                    };
+                }
+            );
     }
 
 
-    // --------------------------------------------------
-    // START RUN
-    // --------------------------------------------------
+    // ==================================================
+    // START QUIZ
+    // ==================================================
 
-    function startRun(isDaily = false) {
-        clearInterval(state.timerId);
+    function startRun(
+        isDaily = false
+    ) {
+        clearInterval(
+            state.timerId
+        );
 
-        state.isDaily = isDaily;
+
+        state.isDaily =
+            isDaily;
+
 
         if (isDaily) {
             state.runSettings = {
-                category: "mixed",
-                mode: "standard",
-                count: 10
+                category:
+                    "mixed",
+
+                mode:
+                    "standard",
+
+                count:
+                    10
             };
         } else {
             state.runSettings = {
@@ -954,91 +1271,145 @@ document.addEventListener("DOMContentLoaded", () => {
             };
         }
 
+
         state.questions =
-            prepareQuestions(isDaily);
+            prepareQuestions(
+                isDaily
+            );
 
-        state.currentIndex = 0;
 
-        state.score = 0;
+        state.currentIndex =
+            0;
 
-        state.streak = 0;
+        state.score =
+            0;
 
-        state.bestRunStreak = 0;
+        state.streak =
+            0;
 
-        state.correct = 0;
+        state.bestRunStreak =
+            0;
 
-        state.answered = false;
+        state.correct =
+            0;
 
-        state.answers = [];
+        state.answered =
+            false;
 
-        showScreen(elements.quizScreen);
+        state.answers =
+            [];
 
-        playSound("start");
+
+        showScreen(
+            elements.quizScreen
+        );
+
+
+        playSound(
+            "start"
+        );
+
 
         displayQuestion();
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // DISPLAY QUESTION
-    // --------------------------------------------------
+    // ==================================================
 
     function displayQuestion() {
-        clearInterval(state.timerId);
+        clearInterval(
+            state.timerId
+        );
 
-        state.answered = false;
 
-        elements.nextButton.disabled = true;
+        state.answered =
+            false;
+
+
+        elements.nextButton.disabled =
+            true;
+
 
         elements.feedback.className =
             "feedback-panel hide";
 
+
         const question =
-            state.questions[state.currentIndex];
+            state.questions[
+                state.currentIndex
+            ];
+
 
         const mode =
-            MODES[state.runSettings.mode];
+            MODES[
+                state.runSettings.mode
+            ];
+
 
         elements.gameCategory.textContent =
             state.isDaily
                 ? "Daily Challenge"
-                : CATEGORY_NAMES[question.category];
+                : CATEGORY_NAMES[
+                    question.category
+                ];
+
 
         elements.gameMode.textContent =
             mode.label;
 
+
         elements.questionCount.textContent =
             `${state.currentIndex + 1} / ${state.questions.length}`;
 
+
         elements.liveScore.textContent =
-            state.score.toLocaleString();
+            state.score
+                .toLocaleString();
+
 
         elements.liveStreak.textContent =
             state.streak;
 
+
         elements.questionNumber.textContent =
-            String(state.currentIndex + 1)
-                .padStart(2, "0");
+            String(
+                state.currentIndex + 1
+            ).padStart(
+                2,
+                "0"
+            );
+
 
         elements.questionOverline.textContent =
             `${CATEGORY_NAMES[
                 question.category
             ].toUpperCase()} · ${question.difficulty.toUpperCase()}`;
 
+
         elements.question.textContent =
             question.question;
 
+
         const progress =
             (
-                (state.currentIndex + 1) /
+                (
+                    state.currentIndex +
+                    1
+                ) /
                 state.questions.length
-            ) * 100;
+            ) *
+            100;
+
 
         elements.progressBar.style.width =
             `${progress}%`;
 
+
         elements.progressLabel.textContent =
             `${Math.round(progress)}%`;
+
 
         elements.nextButton.textContent =
             state.currentIndex ===
@@ -1046,36 +1417,63 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? "See Results →"
                 : "Next Question →";
 
-        elements.options.innerHTML = "";
+
+        elements.options.innerHTML =
+            "";
+
 
         question.options.forEach(
-            (option, index) => {
+            (
+                option,
+                index
+            ) => {
                 const button =
-                    document.createElement("button");
+                    document.createElement(
+                        "button"
+                    );
 
-                button.type = "button";
+
+                button.type =
+                    "button";
+
 
                 button.className =
                     "answer-button";
 
+
                 const key =
-                    document.createElement("span");
+                    document.createElement(
+                        "span"
+                    );
+
 
                 key.className =
                     "answer-key";
 
+
                 key.textContent =
                     index + 1;
 
+
                 const answerText =
-                    document.createElement("span");
+                    document.createElement(
+                        "span"
+                    );
+
 
                 answerText.textContent =
                     option;
 
-                button.appendChild(key);
 
-                button.appendChild(answerText);
+                button.appendChild(
+                    key
+                );
+
+
+                button.appendChild(
+                    answerText
+                );
+
 
                 button.addEventListener(
                     "click",
@@ -1087,41 +1485,55 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 );
 
-                elements.options.appendChild(button);
+
+                elements.options.appendChild(
+                    button
+                );
             }
         );
+
 
         state.timeLeft =
             mode.seconds;
 
+
         state.questionStartedAt =
             performance.now();
 
+
         updateTimer();
+
 
         state.timerId =
             setInterval(
                 () => {
                     state.timeLeft--;
 
+
                     updateTimer();
 
-                    if (state.timeLeft <= 0) {
+
+                    if (
+                        state.timeLeft <=
+                        0
+                    ) {
                         clearInterval(
                             state.timerId
                         );
 
+
                         handleTimeout();
                     }
                 },
+
                 1000
             );
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // TIMER
-    // --------------------------------------------------
+    // ==================================================
 
     function updateTimer() {
         const total =
@@ -1129,14 +1541,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 state.runSettings.mode
             ].seconds;
 
+
         const percentage =
             Math.max(
                 0,
                 (
                     state.timeLeft /
                     total
-                ) * 100
+                ) *
+                100
             );
+
 
         elements.timer.textContent =
             Math.max(
@@ -1144,47 +1559,67 @@ document.addEventListener("DOMContentLoaded", () => {
                 state.timeLeft
             );
 
+
         elements.timerRing.style.setProperty(
             "--progress",
             percentage
         );
 
+
         elements.timerRing.classList.toggle(
             "danger",
+
             state.timeLeft <=
-                Math.ceil(total * 0.3)
+                Math.ceil(
+                    total *
+                    0.3
+                )
         );
     }
 
 
-    // --------------------------------------------------
-    // ANSWER QUESTION
-    // --------------------------------------------------
+    // ==================================================
+    // CHOOSE ANSWER
+    // ==================================================
 
     function chooseAnswer(
         selectedButton,
         selectedAnswer
     ) {
-        if (state.answered) {
+        if (
+            state.answered
+        ) {
             return;
         }
 
-        state.answered = true;
 
-        clearInterval(state.timerId);
+        state.answered =
+            true;
+
+
+        clearInterval(
+            state.timerId
+        );
+
 
         const question =
-            state.questions[state.currentIndex];
+            state.questions[
+                state.currentIndex
+            ];
+
 
         const elapsed =
             (
                 performance.now() -
                 state.questionStartedAt
-            ) / 1000;
+            ) /
+            1000;
+
 
         const correct =
             selectedAnswer ===
             question.answer;
+
 
         markAnswerButtons(
             selectedButton,
@@ -1192,10 +1627,13 @@ document.addEventListener("DOMContentLoaded", () => {
             correct
         );
 
+
         if (correct) {
             state.correct++;
 
+
             state.streak++;
+
 
             state.bestRunStreak =
                 Math.max(
@@ -1203,22 +1641,29 @@ document.addEventListener("DOMContentLoaded", () => {
                     state.streak
                 );
 
+
             const mode =
                 MODES[
                     state.runSettings.mode
                 ];
 
+
             const speedBonus =
                 Math.max(
                     0,
-                    state.timeLeft * 6
+                    state.timeLeft *
+                    6
                 );
+
 
             const streakBonus =
                 Math.min(
-                    state.streak - 1,
+                    state.streak -
+                    1,
                     5
-                ) * 30;
+                ) *
+                30;
+
 
             const earnedPoints =
                 Math.round(
@@ -1230,64 +1675,92 @@ document.addEventListener("DOMContentLoaded", () => {
                     mode.multiplier
                 );
 
+
             state.score +=
                 earnedPoints;
+
 
             showFeedback(
                 true,
                 `+${earnedPoints} points. ${question.explanation}`
             );
 
-            playSound("correct");
+
+            playSound(
+                "correct"
+            );
+
         } else {
-            state.streak = 0;
+            state.streak =
+                0;
+
 
             showFeedback(
                 false,
                 `Correct answer: ${question.answer}. ${question.explanation}`
             );
 
-            playSound("wrong");
+
+            playSound(
+                "wrong"
+            );
         }
+
 
         state.answers.push({
             ...question,
 
-            selected: selectedAnswer,
+            selected:
+                selectedAnswer,
 
             correct,
 
             elapsed,
 
-            timedOut: false
+            timedOut:
+                false
         });
 
+
         elements.liveScore.textContent =
-            state.score.toLocaleString();
+            state.score
+                .toLocaleString();
+
 
         elements.liveStreak.textContent =
             state.streak;
+
 
         elements.nextButton.disabled =
             false;
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // TIMEOUT
-    // --------------------------------------------------
+    // ==================================================
 
     function handleTimeout() {
-        if (state.answered) {
+        if (
+            state.answered
+        ) {
             return;
         }
 
-        state.answered = true;
+
+        state.answered =
+            true;
+
 
         const question =
-            state.questions[state.currentIndex];
+            state.questions[
+                state.currentIndex
+            ];
 
-        state.streak = 0;
+
+        state.streak =
+            0;
+
 
         markAnswerButtons(
             null,
@@ -1295,39 +1768,49 @@ document.addEventListener("DOMContentLoaded", () => {
             false
         );
 
+
         showFeedback(
             false,
             `Time expired. Correct answer: ${question.answer}. ${question.explanation}`
         );
 
+
         state.answers.push({
             ...question,
 
-            selected: "Time expired",
+            selected:
+                "Time expired",
 
-            correct: false,
+            correct:
+                false,
 
             elapsed:
                 MODES[
                     state.runSettings.mode
                 ].seconds,
 
-            timedOut: true
+            timedOut:
+                true
         });
+
 
         elements.liveStreak.textContent =
             0;
 
+
         elements.nextButton.disabled =
             false;
 
-        playSound("wrong");
+
+        playSound(
+            "wrong"
+        );
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // MARK ANSWERS
-    // --------------------------------------------------
+    // ==================================================
 
     function markAnswerButtons(
         selectedButton,
@@ -1335,88 +1818,119 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedWasCorrect
     ) {
         const buttons =
-            elements.options.querySelectorAll(
-                ".answer-button"
-            );
+            elements.options
+                .querySelectorAll(
+                    ".answer-button"
+                );
 
-        buttons.forEach((button) => {
-            button.disabled = true;
 
-            const answerText =
-                button
-                    .querySelector(
-                        "span:last-child"
-                    )
-                    .textContent;
+        buttons.forEach(
+            (button) => {
+                button.disabled =
+                    true;
 
-            if (answerText === correctAnswer) {
-                button.classList.add("correct");
-            } else if (
-                button === selectedButton &&
-                !selectedWasCorrect
-            ) {
-                button.classList.add("wrong");
-            } else {
-                button.classList.add("dimmed");
+
+                const answerText =
+                    button
+                        .querySelector(
+                            "span:last-child"
+                        )
+                        .textContent;
+
+
+                if (
+                    answerText ===
+                    correctAnswer
+                ) {
+                    button.classList.add(
+                        "correct"
+                    );
+
+                } else if (
+                    button ===
+                        selectedButton &&
+                    !selectedWasCorrect
+                ) {
+                    button.classList.add(
+                        "wrong"
+                    );
+
+                } else {
+                    button.classList.add(
+                        "dimmed"
+                    );
+                }
             }
-        });
+        );
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // FEEDBACK
-    // --------------------------------------------------
+    // ==================================================
 
-    function showFeedback(correct, message) {
+    function showFeedback(
+        correct,
+        message
+    ) {
         elements.feedback.className =
             correct
                 ? "feedback-panel"
                 : "feedback-panel wrong";
+
 
         elements.feedbackIcon.textContent =
             correct
                 ? "✓"
                 : "!";
 
+
         elements.feedbackTitle.textContent =
             correct
                 ? "Correct"
                 : "Not this time";
+
 
         elements.feedbackText.textContent =
             message;
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // NEXT QUESTION
-    // --------------------------------------------------
+    // ==================================================
 
     function nextQuestion() {
-        if (!state.answered) {
+        if (
+            !state.answered
+        ) {
             return;
         }
 
+
         state.currentIndex++;
+
 
         if (
             state.currentIndex <
             state.questions.length
         ) {
             displayQuestion();
+
         } else {
             finishRun();
         }
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // DAILY STREAK
-    // --------------------------------------------------
+    // ==================================================
 
     function updateDailyStreak() {
         const today =
             todayKey();
+
 
         if (
             stats.lastDailyDate ===
@@ -1425,18 +1939,25 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        if (!stats.lastDailyDate) {
-            stats.dailyStreak = 1;
+
+        if (
+            !stats.lastDailyDate
+        ) {
+            stats.dailyStreak =
+                1;
+
         } else {
             const previous =
                 new Date(
                     `${stats.lastDailyDate}T00:00:00`
                 );
 
+
             const current =
                 new Date(
                     `${today}T00:00:00`
                 );
+
 
             const difference =
                 Math.round(
@@ -1447,39 +1968,57 @@ document.addEventListener("DOMContentLoaded", () => {
                     86400000
                 );
 
-            if (difference === 1) {
+
+            if (
+                difference ===
+                1
+            ) {
                 stats.dailyStreak++;
+
             } else {
-                stats.dailyStreak = 1;
+                stats.dailyStreak =
+                    1;
             }
         }
+
 
         stats.lastDailyDate =
             today;
     }
 
 
-    // --------------------------------------------------
-    // FINISH RUN
-    // --------------------------------------------------
+    // ==================================================
+    // FINISH QUIZ
+    // ==================================================
 
     function finishRun() {
-        clearInterval(state.timerId);
+        clearInterval(
+            state.timerId
+        );
+
 
         const accuracy =
             Math.round(
                 (
                     state.correct /
                     state.questions.length
-                ) * 100
+                ) *
+                100
             );
+
 
         const totalResponseTime =
             state.answers.reduce(
-                (total, item) =>
-                    total + item.elapsed,
+                (
+                    total,
+                    item
+                ) =>
+                    total +
+                    item.elapsed,
+
                 0
             );
+
 
         const averageResponseTime =
             state.answers.length
@@ -1487,11 +2026,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     state.answers.length
                 : 0;
 
+
         const isNewHighScore =
             state.score >
             stats.bestScore;
 
+
         stats.gamesPlayed++;
+
 
         stats.bestScore =
             Math.max(
@@ -1499,11 +2041,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 state.score
             );
 
+
         stats.bestAccuracy =
             Math.max(
                 stats.bestAccuracy,
                 accuracy
             );
+
 
         stats.bestStreak =
             Math.max(
@@ -1511,13 +2055,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 state.bestRunStreak
             );
 
-        if (state.isDaily) {
+
+        if (
+            state.isDaily
+        ) {
             updateDailyStreak();
         }
 
+
         saveStats();
 
+
         updateHomeStats();
+
 
         displayResults(
             accuracy,
@@ -1525,9 +2075,11 @@ document.addEventListener("DOMContentLoaded", () => {
             isNewHighScore
         );
 
+
         showScreen(
             elements.resultScreen
         );
+
 
         if (
             accuracy >= 80 ||
@@ -1535,6 +2087,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
             launchConfetti();
         }
+
 
         playSound(
             accuracy >= 80
@@ -1544,9 +2097,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // RESULTS
-    // --------------------------------------------------
+    // ==================================================
 
     function displayResults(
         accuracy,
@@ -1559,68 +2112,94 @@ document.addEventListener("DOMContentLoaded", () => {
                     !answer.correct
             );
 
+
         elements.resultBadge.textContent =
             state.isDaily
                 ? "DAILY COMPLETE"
                 : "RUN COMPLETE";
 
+
         elements.finalScore.textContent =
-            state.score.toLocaleString();
+            state.score
+                .toLocaleString();
+
 
         elements.newHighScore.classList.toggle(
             "hide",
             !isNewHighScore
         );
 
+
         elements.finalAccuracy.textContent =
             `${accuracy}%`;
+
 
         elements.correctSummary.textContent =
             `${state.correct} / ${state.questions.length} correct`;
 
+
         elements.finalStreak.textContent =
             state.bestRunStreak;
 
+
         elements.averageTime.textContent =
             `${averageTime.toFixed(1)}s`;
+
 
         elements.finalMode.textContent =
             MODES[
                 state.runSettings.mode
             ].label;
 
+
         elements.finalCategory.textContent =
             state.isDaily
                 ? "Daily mixed challenge"
-                : `${CATEGORY_NAMES[
-                    state.runSettings.category
-                ]} category`;
+                : `${CATEGORY_NAMES[state.runSettings.category]} category`;
 
-        if (accuracy === 100) {
+
+        if (
+            accuracy ===
+            100
+        ) {
             elements.resultTitle.textContent =
                 "Flawless.";
 
+
             elements.resultSubtitle.textContent =
                 "Perfect accuracy. That one deserves another run.";
-        } else if (accuracy >= 80) {
+
+        } else if (
+            accuracy >=
+            80
+        ) {
             elements.resultTitle.textContent =
                 "That was strong.";
 
+
             elements.resultSubtitle.textContent =
                 "You were locked in. Run it back and chase the perfect score.";
-        } else if (accuracy >= 60) {
+
+        } else if (
+            accuracy >=
+            60
+        ) {
             elements.resultTitle.textContent =
                 "You were right there.";
 
+
             elements.resultSubtitle.textContent =
                 "A few answers separated you from a huge run. Review the misses and go again.";
+
         } else {
             elements.resultTitle.textContent =
                 "Run it back.";
 
+
             elements.resultSubtitle.textContent =
                 "Now you know what is coming. Review your misses and beat this score.";
         }
+
 
         displayAchievements(
             accuracy,
@@ -1628,35 +2207,49 @@ document.addEventListener("DOMContentLoaded", () => {
             isNewHighScore
         );
 
-        displayReview(missed);
+
+        displayReview(
+            missed
+        );
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // ACHIEVEMENTS
-    // --------------------------------------------------
+    // ==================================================
 
     function displayAchievements(
         accuracy,
         averageTime,
         isNewHighScore
     ) {
-        const achievements = [];
+        const achievements =
+            [];
 
-        if (accuracy === 100) {
+
+        if (
+            accuracy ===
+            100
+        ) {
             achievements.push(
                 "★ Perfect Run"
             );
         }
 
-        if (state.bestRunStreak >= 5) {
+
+        if (
+            state.bestRunStreak >=
+            5
+        ) {
             achievements.push(
                 "🔥 Hot Streak"
             );
         }
 
+
         if (
-            averageTime <= 6 &&
+            averageTime <=
+                6 &&
             state.correct >=
                 Math.ceil(
                     state.questions.length *
@@ -1668,49 +2261,66 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         }
 
-        if (isNewHighScore) {
+
+        if (
+            isNewHighScore
+        ) {
             achievements.push(
                 "🏆 New High Score"
             );
         }
 
-        if (state.isDaily) {
+
+        if (
+            state.isDaily
+        ) {
             achievements.push(
                 "◉ Daily Finisher"
             );
         }
 
+
         if (
             state.runSettings.mode ===
-            "blitz" &&
-            accuracy >= 70
+                "blitz" &&
+            accuracy >=
+                70
         ) {
             achievements.push(
                 "⏱ Blitz Tested"
             );
         }
 
+
         if (
-            achievements.length === 0
+            achievements.length ===
+            0
         ) {
             achievements.push(
                 "✓ Run Complete"
             );
         }
 
+
         elements.achievementRow.innerHTML =
             "";
+
 
         achievements.forEach(
             (achievement) => {
                 const chip =
-                    document.createElement("span");
+                    document.createElement(
+                        "span"
+                    );
+
 
                 chip.className =
                     "achievement-chip";
 
+
                 chip.textContent =
                     achievement;
+
 
                 elements.achievementRow.appendChild(
                     chip
@@ -1720,79 +2330,113 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // REVIEW MISSED QUESTIONS
-    // --------------------------------------------------
+    // ==================================================
 
-    function displayReview(missed) {
+    function displayReview(
+        missed
+    ) {
         elements.reviewList.innerHTML =
             "";
+
 
         elements.reviewList.classList.add(
             "hide"
         );
+
 
         elements.reviewToggle.setAttribute(
             "aria-expanded",
             "false"
         );
 
+
         elements.reviewChevron.textContent =
             "＋";
 
+
         elements.reviewCount.textContent =
             `${missed.length} missed`;
+
 
         elements.reviewCard.classList.toggle(
             "hide",
             missed.length === 0
         );
 
+
         missed.forEach(
-            (item, index) => {
+            (
+                item,
+                index
+            ) => {
                 const card =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
+
 
                 card.className =
                     "review-item";
 
+
                 const label =
-                    document.createElement("span");
+                    document.createElement(
+                        "span"
+                    );
+
 
                 label.textContent =
-                    `MISS ${String(
-                        index + 1
-                    ).padStart(2, "0")} · ` +
+                    `MISS ${String(index + 1).padStart(2, "0")} · ` +
                     CATEGORY_NAMES[
                         item.category
                     ].toUpperCase();
 
+
                 const question =
-                    document.createElement("strong");
+                    document.createElement(
+                        "strong"
+                    );
+
 
                 question.textContent =
                     item.question;
 
+
                 const selected =
-                    document.createElement("p");
+                    document.createElement(
+                        "p"
+                    );
+
 
                 selected.textContent =
                     `Your answer: ${item.selected}`;
 
+
                 const correct =
-                    document.createElement("p");
+                    document.createElement(
+                        "p"
+                    );
+
 
                 correct.className =
                     "review-correct";
 
+
                 correct.textContent =
                     `Correct answer: ${item.answer}`;
 
+
                 const explanation =
-                    document.createElement("p");
+                    document.createElement(
+                        "p"
+                    );
+
 
                 explanation.textContent =
                     item.explanation;
+
 
                 card.append(
                     label,
@@ -1802,6 +2446,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     explanation
                 );
 
+
                 elements.reviewList.appendChild(
                     card
                 );
@@ -1810,25 +2455,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // REVIEW TOGGLE
-    // --------------------------------------------------
+    // ==================================================
 
     function toggleReview() {
         const isOpen =
-            elements.reviewToggle.getAttribute(
-                "aria-expanded"
-            ) === "true";
+            elements.reviewToggle
+                .getAttribute(
+                    "aria-expanded"
+                ) ===
+            "true";
+
 
         elements.reviewToggle.setAttribute(
             "aria-expanded",
             String(!isOpen)
         );
 
+
         elements.reviewList.classList.toggle(
             "hide",
             isOpen
         );
+
 
         elements.reviewChevron.textContent =
             isOpen
@@ -1837,20 +2487,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // --------------------------------------------------
-    // HOME / QUIT
-    // --------------------------------------------------
+    // ==================================================
+    // RETURN HOME
+    // ==================================================
 
     function returnHome() {
-        clearInterval(state.timerId);
+        clearInterval(
+            state.timerId
+        );
+
 
         showScreen(
             elements.homeScreen
         );
 
+
         updateHomeStats();
     }
 
+
+    // ==================================================
+    // QUIT CURRENT QUIZ
+    // ==================================================
 
     function quitRun() {
         const confirmed =
@@ -1858,87 +2516,126 @@ document.addEventListener("DOMContentLoaded", () => {
                 "End this run and return to the home screen?"
             );
 
-        if (confirmed) {
+
+        if (
+            confirmed
+        ) {
             returnHome();
         }
     }
 
 
-    // --------------------------------------------------
-    // SOUND
-    // --------------------------------------------------
+    // ==================================================
+    // AUDIO
+    // ==================================================
 
-    let audioContext = null;
+    let audioContext =
+        null;
 
 
     function playSound(type) {
-        if (!stats.sound) {
+        if (
+            !stats.sound
+        ) {
             return;
         }
 
+
         try {
-            if (!audioContext) {
+            if (
+                !audioContext
+            ) {
                 const AudioContextClass =
                     window.AudioContext ||
                     window.webkitAudioContext;
 
-                if (!AudioContextClass) {
+
+                if (
+                    !AudioContextClass
+                ) {
                     return;
                 }
+
 
                 audioContext =
                     new AudioContextClass();
             }
 
+
             const oscillator =
-                audioContext.createOscillator();
+                audioContext
+                    .createOscillator();
+
 
             const gain =
-                audioContext.createGain();
+                audioContext
+                    .createGain();
+
 
             const sounds = {
                 start: {
-                    frequency: 440,
-                    duration: 0.07
+                    frequency:
+                        440,
+
+                    duration:
+                        0.07
                 },
 
                 correct: {
-                    frequency: 700,
-                    duration: 0.09
+                    frequency:
+                        700,
+
+                    duration:
+                        0.09
                 },
 
                 wrong: {
-                    frequency: 180,
-                    duration: 0.12
+                    frequency:
+                        180,
+
+                    duration:
+                        0.12
                 },
 
                 finish: {
-                    frequency: 380,
-                    duration: 0.10
+                    frequency:
+                        380,
+
+                    duration:
+                        0.10
                 },
 
                 finishGood: {
-                    frequency: 820,
-                    duration: 0.12
+                    frequency:
+                        820,
+
+                    duration:
+                        0.12
                 }
             };
+
 
             const sound =
                 sounds[type] ||
                 sounds.start;
 
+
             oscillator.type =
-                type === "wrong"
+                type ===
+                "wrong"
                     ? "triangle"
                     : "sine";
 
+
             oscillator.frequency.value =
                 sound.frequency;
+
 
             gain.gain.setValueAtTime(
                 0.0001,
                 audioContext.currentTime
             );
+
 
             gain.gain.exponentialRampToValueAtTime(
                 0.05,
@@ -1946,25 +2643,33 @@ document.addEventListener("DOMContentLoaded", () => {
                     0.01
             );
 
+
             gain.gain.exponentialRampToValueAtTime(
                 0.0001,
                 audioContext.currentTime +
                     sound.duration
             );
 
-            oscillator.connect(gain);
+
+            oscillator.connect(
+                gain
+            );
+
 
             gain.connect(
                 audioContext.destination
             );
 
+
             oscillator.start();
+
 
             oscillator.stop(
                 audioContext.currentTime +
                     sound.duration +
                     0.02
             );
+
         } catch (error) {
             console.warn(
                 "QuizForge sound unavailable.",
@@ -1978,67 +2683,90 @@ document.addEventListener("DOMContentLoaded", () => {
         stats.sound =
             !stats.sound;
 
+
         saveStats();
+
 
         updateHomeStats();
 
-        if (stats.sound) {
-            playSound("start");
+
+        if (
+            stats.sound
+        ) {
+            playSound(
+                "start"
+            );
         }
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // CONFETTI
-    // --------------------------------------------------
+    // ==================================================
 
     function launchConfetti() {
         const colors = [
-            "#00d4ff",
-            "#44ffd2",
-            "#ffb347",
-            "#ff7b54",
-            "#f6e27a",
+            "#f4b860",
+            "#ffd895",
+            "#e9963e",
+            "#43dbc8",
+            "#54d69a",
             "#ffffff"
         ];
+
 
         elements.confetti.innerHTML =
             "";
 
-        for (let i = 0; i < 70; i++) {
+
+        for (
+            let i = 0;
+            i < 70;
+            i++
+        ) {
             const piece =
-                document.createElement("span");
+                document.createElement(
+                    "span"
+                );
+
 
             piece.className =
                 "confetti-piece";
+
 
             piece.style.setProperty(
                 "--left",
                 `${Math.random() * 100}%`
             );
 
+
             piece.style.setProperty(
                 "--size",
                 `${5 + Math.random() * 6}px`
             );
+
 
             piece.style.setProperty(
                 "--rotation",
                 `${Math.random() * 360}deg`
             );
 
+
             piece.style.setProperty(
                 "--drift",
                 `${-120 + Math.random() * 240}px`
             );
+
 
             piece.style.setProperty(
                 "--duration",
                 `${2.1 + Math.random() * 1.8}s`
             );
 
+
             piece.style.setProperty(
                 "--color",
+
                 colors[
                     Math.floor(
                         Math.random() *
@@ -2047,37 +2775,46 @@ document.addEventListener("DOMContentLoaded", () => {
                 ]
             );
 
+
             elements.confetti.appendChild(
                 piece
             );
         }
+
 
         setTimeout(
             () => {
                 elements.confetti.innerHTML =
                     "";
             },
+
             4200
         );
     }
 
 
-    // --------------------------------------------------
-    // TOAST
-    // --------------------------------------------------
+    // ==================================================
+    // TOAST NOTIFICATIONS
+    // ==================================================
 
-    let toastTimer = null;
+    let toastTimer =
+        null;
 
 
     function showToast(message) {
-        clearTimeout(toastTimer);
+        clearTimeout(
+            toastTimer
+        );
+
 
         elements.toast.textContent =
             message;
 
+
         elements.toast.classList.add(
             "show"
         );
+
 
         toastTimer =
             setTimeout(
@@ -2086,14 +2823,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         "show"
                     );
                 },
+
                 2200
             );
     }
 
 
-    // --------------------------------------------------
-    // SHARE
-    // --------------------------------------------------
+    // ==================================================
+    // SHARE RESULT
+    // ==================================================
 
     async function shareResult() {
         const accuracy =
@@ -2101,24 +2839,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 (
                     state.correct /
                     state.questions.length
-                ) * 100
+                ) *
+                100
             );
+
 
         const message =
             `I scored ${state.score.toLocaleString()} points ` +
             `with ${accuracy}% accuracy on QuizForge. ` +
             `Can you beat it?`;
 
+
         try {
-            if (navigator.share) {
+            if (
+                navigator.share
+            ) {
                 await navigator.share({
-                    title: "QuizForge Result",
-                    text: message,
-                    url: window.location.href
+                    title:
+                        "QuizForge Result",
+
+                    text:
+                        message,
+
+                    url:
+                        window.location.href
                 });
 
                 return;
             }
+
 
             if (
                 navigator.clipboard &&
@@ -2128,24 +2877,30 @@ document.addEventListener("DOMContentLoaded", () => {
                     `${message} ${window.location.href}`
                 );
 
+
                 showToast(
                     "Result copied to clipboard."
                 );
 
+
                 return;
             }
+
 
             showToast(
                 "Sharing is not supported by this browser."
             );
+
         } catch (error) {
             if (
-                error.name !== "AbortError"
+                error.name !==
+                "AbortError"
             ) {
                 console.warn(
                     "Share failed.",
                     error
                 );
+
 
                 showToast(
                     "Could not share automatically."
@@ -2155,14 +2910,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // BUTTON EVENTS
-    // --------------------------------------------------
+    // ==================================================
 
     elements.startCustomButton.addEventListener(
         "click",
         () => {
-            startRun(false);
+            startRun(
+                false
+            );
         }
     );
 
@@ -2170,26 +2927,17 @@ document.addEventListener("DOMContentLoaded", () => {
     elements.dailyButton.addEventListener(
         "click",
         () => {
-            startRun(true);
+            startRun(
+                true
+            );
         }
     );
 
 
+    // FIXED BUILD A CUSTOM RUN BUTTON
     elements.jumpToBuilder.addEventListener(
         "click",
-        () => {
-            const builder =
-                document.getElementById(
-                    "builder"
-                );
-
-            if (builder) {
-                builder.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-            }
-        }
+        goToQuizBuilder
     );
 
 
@@ -2245,9 +2993,9 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    // --------------------------------------------------
+    // ==================================================
     // KEYBOARD CONTROLS
-    // --------------------------------------------------
+    // ==================================================
 
     document.addEventListener(
         "keydown",
@@ -2260,9 +3008,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+
             if (
                 !state.answered &&
-                ["1", "2", "3", "4"].includes(
+                [
+                    "1",
+                    "2",
+                    "3",
+                    "4"
+                ].includes(
                     event.key
                 )
             ) {
@@ -2271,11 +3025,17 @@ document.addEventListener("DOMContentLoaded", () => {
                         ".answer-button"
                     );
 
+
                 const index =
-                    Number(event.key) - 1;
+                    Number(
+                        event.key
+                    ) -
+                    1;
+
 
                 const button =
                     buttons[index];
+
 
                 if (
                     button &&
@@ -2285,9 +3045,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
+
             if (
                 state.answered &&
-                event.key === "Enter" &&
+                event.key ===
+                "Enter" &&
                 !elements.nextButton.disabled
             ) {
                 elements.nextButton.click();
@@ -2296,15 +3058,16 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    // --------------------------------------------------
-    // INITIALIZE APP
-    // --------------------------------------------------
+    // ==================================================
+    // INITIALIZE QUIZFORGE
+    // ==================================================
 
     updateHomeStats();
 
     updateLaunchSummary();
 
+
     console.log(
-        "QuizForge initialization complete. Buttons are ready."
+        "QuizForge initialization complete. All controls are ready."
     );
 });
