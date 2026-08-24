@@ -1,39 +1,174 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="description"
+        content="An interactive timed quiz application built with HTML, CSS, and JavaScript."
+    >
+    <title>Quiz Challenge</title>
     <link rel="stylesheet" href="style.css">
-    <title>Quiz App</title>
 </head>
+
 <body>
-    <div id="display-container">
-        <div class="header">
-            <div class="number-of-count">
-                <span class="number-of-question">Question 1 of 2</span>
+
+    <main class="quiz-wrapper">
+
+        <section class="quiz-card" id="quiz-card">
+
+            <!-- Start Screen -->
+            <div id="start-screen" class="screen">
+                <div class="quiz-icon">?</div>
+
+                <p class="eyebrow">TEST YOUR KNOWLEDGE</p>
+
+                <h1>Quiz Challenge</h1>
+
+                <p class="intro-text">
+                    Answer 10 questions covering general knowledge, technology,
+                    science, and geography.
+                </p>
+
+                <div class="quiz-details">
+                    <div class="detail">
+                        <span class="detail-number">10</span>
+                        <span class="detail-label">Questions</span>
+                    </div>
+
+                    <div class="detail">
+                        <span class="detail-number">15</span>
+                        <span class="detail-label">Seconds Each</span>
+                    </div>
+
+                    <div class="detail">
+                        <span class="detail-number">100%</span>
+                        <span class="detail-label">Possible</span>
+                    </div>
+                </div>
+
+                <button id="start-button" class="primary-button">
+                    Start Quiz
+                </button>
             </div>
-            <div class="timer-div">
-                <img src="https://uxwing.com/wp-content/themes/uxwing/download/time-and-date/stopwatch-icon.png" width="20px" alt="Timer icon" />
-                <span class="time-left">10s</span>
+
+
+            <!-- Quiz Screen -->
+            <div id="quiz-screen" class="screen hide">
+
+                <header class="quiz-header">
+                    <div>
+                        <p class="quiz-label">QUIZ CHALLENGE</p>
+
+                        <p id="question-count" class="question-count">
+                            Question 1 of 10
+                        </p>
+                    </div>
+
+                    <div class="header-stats">
+                        <div class="score-box">
+                            <span class="stat-label">Score</span>
+                            <span id="live-score">0</span>
+                        </div>
+
+                        <div id="timer-box" class="timer-box">
+                            <span class="timer-icon">◷</span>
+                            <span id="timer">15</span>
+                            <span class="seconds-label">sec</span>
+                        </div>
+                    </div>
+                </header>
+
+
+                <div class="progress-track">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+
+
+                <div class="question-area">
+                    <p id="question-category" class="category">
+                        Geography
+                    </p>
+
+                    <h2 id="question">
+                        Question text
+                    </h2>
+
+                    <div id="options" class="options"></div>
+
+                    <div id="feedback" class="feedback hide"></div>
+                </div>
+
+
+                <div class="quiz-footer">
+                    <p class="answer-hint">
+                        Select the best answer.
+                    </p>
+
+                    <button
+                        id="next-button"
+                        class="primary-button next-button"
+                        disabled
+                    >
+                        Next Question
+                    </button>
+                </div>
+
             </div>
-        </div>
-        <div id="container">
-            <p id="question">What is the capital of France?</p>
-            <div id="options">
-                <button class="option">Paris</button>
-                <button class="option">London</button>
-                <button class="option">Berlin</button>
-                <button class="option">Madrid</button>
+
+
+            <!-- Results Screen -->
+            <div id="result-screen" class="screen hide">
+
+                <div id="result-icon" class="result-icon">✓</div>
+
+                <p class="eyebrow">QUIZ COMPLETE</p>
+
+                <h1>Your Results</h1>
+
+                <div class="score-circle">
+                    <span id="final-percentage">0%</span>
+                </div>
+
+                <h2 id="result-message">
+                    Great job!
+                </h2>
+
+                <p id="final-score" class="final-score">
+                    You answered 0 out of 10 questions correctly.
+                </p>
+
+                <div class="result-stats">
+                    <div class="result-stat">
+                        <span id="correct-total" class="result-number">0</span>
+                        <span>Correct</span>
+                    </div>
+
+                    <div class="result-stat">
+                        <span id="incorrect-total" class="result-number">0</span>
+                        <span>Incorrect</span>
+                    </div>
+
+                    <div class="result-stat">
+                        <span id="percentage-total" class="result-number">0%</span>
+                        <span>Score</span>
+                    </div>
+                </div>
+
+                <button id="restart-button" class="primary-button">
+                    Try Again
+                </button>
+
             </div>
-        </div>
-        <div class="score-container hide">
-            <div id="user-score">Your Score: 0/2</div>
-        </div>
-        <div class="button-container">
-            <button id="restart">Restart</button>
-            <button id="next-button" class="hide">Next</button>
-        </div>
-    </div>
+
+        </section>
+
+        <p class="footer-text">
+            Built by Letherius Miller
+        </p>
+
+    </main>
+
     <script src="script.js"></script>
 </body>
 </html>
